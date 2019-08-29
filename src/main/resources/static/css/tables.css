@@ -1,0 +1,240 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+// ------------- Questions table style -------------
+
+.table-questions-title {
+  color: #003747;
+  font-size: 30px;
+  font-weight: 400;
+  font-style:normal;
+  font-family: "Roboto", helvetica, arial, sans-serif;
+  text-transform:uppercase;
+  margin: 30px;
+}
+
+.table-questions {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+ 
+.table-questions th {
+  color:#ffffff;
+  background:#006989;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #003747;
+  font-size:20px;
+  max-width: 1000px;
+  font-weight: 100;
+  padding: 15px;
+  text-align:left;
+  vertical-align:middle;
+}
+
+.table-questions tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:14px;
+  font-weight:normal;
+}
+
+.table-questions td {
+  background:#FFFFFF;
+  padding:17px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:16px;
+  border-right: 1px solid #C1C3D1;
+}
+
+.text-justify a {
+  color: #004656;
+  text-decoration: none;
+}
+
+.table-questions th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+.table-questions th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+
+.table-questions th.text-left {
+  text-align: left;
+}
+
+.table-questions th.text-center {
+  text-align: center;
+}
+
+.table-questions th.text-right {
+  text-align: right;
+}
+
+.table-questions tr:hover td a{
+  text-decoration: underline;
+  color: #803634;
+}
+ 
+.table-questions tr:first-child {
+  border-top:none;
+}
+
+.table-questions tr:last-child {
+  border-bottom:none;
+}
+ 
+.table-questions tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+
+.table-questions tr:nth-child(odd):hover td a{  
+  text-decoration: underline;
+}
+
+.table-questions tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+.table-questions tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+
+.table-questions td:last-child {
+  border-right: 0px;
+}
+
+.table-questions td.text-left {
+  text-align: left;
+}
+
+.table-questions td.text-center {
+  text-align: center;
+}
+
+
+// ------------- Forecasts table style -------------
+
+.text-justify a {
+  color: #004656;
+  text-decoration: none;
+}
+
+.table-forecasts {
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  width: 100%;
+  height: 1%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+ 
+.table-forecasts th {
+  color:#ffffff;
+  background:#006989;
+  border-bottom:3px solid #ffffff;
+  border-right: 1px solid #2f6fa6;
+  font-size:17px;
+  padding: 10px;
+}
+
+.table-forecasts th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+.table-forecasts th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+.table-forecasts tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:14px;
+  font-weight:normal;
+}
+ 
+.table-forecasts tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+
+.table-forecasts tr:hover td a{
+  color:#FFFFFF;
+}
+ 
+.table-forecasts tr:first-child {
+  border-top:none;
+}
+
+.table-forecasts tr:last-child {
+  border-bottom:none;
+}
+ 
+.table-forecasts tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+ 
+.table-forecasts tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+.table-forecasts tr:nth-child(odd):hover td a{
+  color: white;
+}
+
+.table-forecasts tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+.table-forecasts tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+.table-forecasts td {
+  background:#FFFFFF;
+  padding:17px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:16px;
+  border-right: 1px solid #C1C3D1;
+}
+
+.table-forecasts td:last-child {
+  border-right: 0px;
+}
+
+.table-forecasts th.text-left {
+  text-align: left;
+}
+
+.table-forecasts th.text-center {
+  text-align: center;
+}
+
+.table-forecasts th.text-right {
+  text-align: right;
+}
+
+.table-forecasts td.text-left {
+  text-align: left;
+}
+
+.table-forecasts td.text-center {
+  text-align: center;
+}
+
+.table-forecasts td.text-right {
+  text-align: right;
+}

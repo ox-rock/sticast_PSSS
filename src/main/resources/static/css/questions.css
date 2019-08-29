@@ -1,0 +1,159 @@
+table {
+  font-family: Helvetica,Arial,sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+ 
+td, th {
+  border: 1px solid #eaebed;
+  text-align: left;
+  padding: 4px;        
+}     	
+     	
+.button {
+  display: inline-block;
+  border-radius: 1px;
+  background-color: #c7d0cd;
+  border: none;
+  color: #464646;
+  text-align: center;
+  font-size: 15px;
+  padding: 0px;
+  width: 80px;
+  height: 27px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button:hover {
+  background-color: #4f81bc;
+  color: #ffffff;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 15px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+
+.button-choose {
+  display: inline-block;
+  border-radius: 1px;
+  background-color: #c7d0cd;
+  border: none;
+  color: #464646;
+  text-align: center;
+  font-size: 15px;
+  padding: 0px;
+  width: 80px;
+  height: 27px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button-choose:hover {
+  background-color: #006989;
+  color: #ffffff;
+}
+
+.button-choose span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button-choose span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button-choose:hover span {
+  padding-right: 15px;
+}
+
+.button-choose:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+
+
+.form_buysell {
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate3d(0, 500px, 0);
+  animation: arrive 500ms ease-in-out 0.5s forwards;
+}
+
+.tab-group {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.tab-group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tab-group li a {
+  display: block;
+  text-decoration: none;
+  padding: 15px;
+  background: #C7D0CD;
+  color: #ffffff;
+  font-size: 20px;
+  float: left;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: .5s ease;
+}
+
+.tab-group li a:hover {
+  background: #85b7f2;
+  color: #ffffff;
+}
+
+.tab-group .active a {
+  background: #4f81bc;
+  color: #ffffff;
+}
+
+.tab-content > div:last-child {
+  display: none;
+}

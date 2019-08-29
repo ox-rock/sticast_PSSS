@@ -1,0 +1,91 @@
+$font-family:   "Roboto";
+$font-size:     14px;
+$color-primary: #ABA194;
+
+
+html {
+  overflow-y: scroll;
+}
+
+.user {
+    width: 90%;
+    max-width: 340px;
+    margin: 6vh auto;
+}
+
+.user__header {
+    text-align: center;
+    opacity: 0;
+    transform: translate3d(0, 500px, 0);
+    animation: arrive 500ms ease-in-out 0.3s forwards;
+}
+
+.user__title {
+    font-size: 25px;
+    margin-bottom: -20px;
+    color: #006989;
+}
+
+.user__title2 {
+    font-size: 14px;
+    margin-bottom: -30px;
+    font-weight: 500;
+    color: #006989;
+}
+
+
+.form_login, .form_register {
+    margin-top: 40px;
+    border-radius: 6px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translate3d(0, 500px, 0);
+    animation: arrive 500ms ease-in-out 0.5s forwards;
+}
+
+
+.form__input {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-family: $font-family;
+    -webkit-appearance: none;
+    border: 0;
+    outline: 0;
+    transition: 0.3s;
+    
+    &:focus {
+        background: darken(#fff, 3%);
+    }
+}
+
+.form_error {
+  background: #ffffff;
+  padding: 10px;
+  max-width: 340px;
+  margin-top: 0px;
+  margin-bottom: 10px;  
+  border-radius: 50px;
+  border: 1px solid #ff6e6e;
+  color: #f40000;
+  font-size: 17px;
+  text-align: center;
+
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-family: $font-family;
+    -webkit-appearance: none;
+    outline: 0;
+    border: 0;
+    color: white;
+    background: #006989;
+    transition: 0.3s;
+    
+    &:hover {
+        color: red;;
+    }
+}

@@ -1,0 +1,129 @@
+$font-family:   "Roboto";
+$font-size:     14px;
+$color-primary: #ABA194;
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ 
+}
+
+body {
+    font-family: $font-family;
+    font-size: $font-size;
+    background-size: 200% 100% !important;
+    background: #eaebed;
+    min-height: 100%;
+    position:relative;
+   
+
+}
+
+html {
+  overflow-y: scroll;
+   height:100%;
+}
+
+
+
+.footer {
+	position:absolute;
+	bottom: 0;
+  	width: 100%;
+    text-align:center;
+  height: 45px;
+  line-height: 45px; /* Vertically center the text there */
+  background-color: #37718e;
+}
+
+.text-muted {
+	color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #01a7c2;
+  text-decoration: underline;
+}
+a:focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.navbar {
+	
+	background: #254e70;
+	margin-bottom: 40px;
+}
+
+.navbar-nav > li > a {
+	
+	color: #eaebed;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: #37718e;
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+
+    background-color: #37718e;
+    border-color: #337ab7;
+
+}
+
+	  .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
+	    background-color: #006989;
+	  }
+
+
+@keyframes NO {
+  from, to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 30%, 50%, 70%, 90% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%, 40%, 60%, 80% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+@keyframes arrive {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 50px, 0);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0
+    }
+
+    50% {
+        background-position: 100% 0
+    }
+
+    100% {
+        background-position: 0 0
+    }
+}
+
