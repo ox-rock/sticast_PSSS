@@ -7,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sticast.entity.Account;
-import com.sticast.entity.AccountDetails;
 import com.sticast.entity.Category;
 import com.sticast.entity.Comment;
 import com.sticast.entity.Forecast;
 import com.sticast.entity.Question;
 import com.sticast.exception.UsernameNotFoundException;
-import com.sticast.service.AccountDetailsService;
 import com.sticast.service.AccountService;
 import com.sticast.service.CategoryService;
 import com.sticast.service.CommentService;
@@ -34,18 +32,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
 	CategoryService categoryService;
 	@Autowired
     ForecastService forecastService;
-	@Autowired
-	AccountDetailsService accountDetailsService;
 	
-	@Override
-	public AccountDetails getAccountDetails(Integer accountID, Integer questionID) {
-		return accountDetailsService.getAccountDetails(accountID, questionID);
-	}
-
-	@Override
-	public ArrayList<AccountDetails> getFollowList(Integer accountID) {
-		return accountDetailsService.getFollowList(accountID);
-	}
 
 	@Override
 	public Account getAccountByUsername(String username) throws UsernameNotFoundException {
@@ -92,10 +79,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
 		return questionService.getQuestion(questionID);
 	}
 
-	@Override
-	public void followOrUnfollowQuestion(Integer accountID, Integer questionID, String type) {
-		accountDetailsService.followOrUnfollowQuestion(accountID, questionID, type);
-	}
+
 
 	@Override
 	public Double makeForecast(Forecast forecast) {

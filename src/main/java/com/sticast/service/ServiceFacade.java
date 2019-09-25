@@ -3,7 +3,6 @@ package com.sticast.service;
 import java.util.ArrayList;
 import java.util.Optional;
 import com.sticast.entity.Account;
-import com.sticast.entity.AccountDetails;
 import com.sticast.entity.Category;
 import com.sticast.entity.Comment;
 import com.sticast.entity.Forecast;
@@ -11,10 +10,6 @@ import com.sticast.entity.Question;
 import com.sticast.exception.UsernameNotFoundException;
 
 public interface ServiceFacade {
-
-	public AccountDetails getAccountDetails(Integer accountID, Integer questionID);
-	public ArrayList<AccountDetails> getFollowList(Integer accountID);
-	public void followOrUnfollowQuestion(Integer accountID, Integer questionID, String type);
 	
 	public Account getAccountByUsername(String username) throws UsernameNotFoundException;
 	public Account getAccountById(Integer accountID);

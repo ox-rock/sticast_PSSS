@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.sticast.entity.AccountDetails;
 import com.sticast.entity.Category;
 import com.sticast.entity.Comment;
 import com.sticast.entity.Forecast;
@@ -58,9 +56,9 @@ public class QuestionController {
 			return "redirect:/questions/all";
 		model.addAttribute("question",question);
 		
-		AccountDetails accountDetails = serviceFacade.getAccountDetails(accountID, questionID);
-		model.addAttribute("accountDetails", accountDetails);
-	    model.addAttribute("commentsList", question.get().getCommenstList());	
+//		AccountDetails accountDetails = serviceFacade.getAccountDetails(accountID, questionID);
+//		model.addAttribute("accountDetails", accountDetails);
+//	    model.addAttribute("commentsList", question.get().getCommenstList());	
 
 	    return "question";	  
     }
@@ -102,27 +100,4 @@ public class QuestionController {
 	}
     
     */
-    
-    @RequestMapping(value = "/following", method = RequestMethod.GET)
-	public String showFollowsList(Model model, HttpServletRequest request) {	  
-       
-    	HttpSession session = request.getSession(false);	
-		Integer accountID = (Integer)session.getAttribute("accountID");
-		if(accountID == null)
-			return "login"; 	
-		
-		ArrayList<AccountDetails> followList = serviceFacade.getFollowList(accountID); 
-		model.addAttribute("followList", followList);
-	    return "following"; 
-	}
-	  
-	@RequestMapping(value = "/following", method = RequestMethod.POST)
-	public void followQuestion(Model model, HttpServletRequest request, 
-		@RequestParam("type") String requestType, @RequestParam("questionID") Integer questionID) {
-		
-        HttpSession session = request.getSession(false);			
-        Integer accountID = (Integer)session.getAttribute("accountID");
-		
-        serviceFacade.followOrUnfollowQuestion(accountID, questionID, requestType);    		
-    }    
 }
