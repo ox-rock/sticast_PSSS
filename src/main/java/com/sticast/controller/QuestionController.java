@@ -62,6 +62,13 @@ public class QuestionController {
 
 	    return "question";	  
     }
+    
+    @RequestMapping(value = "/question/{questionID}/comments", method = RequestMethod.POST)
+	public String postComment(@ModelAttribute("comment") Comment comment, @PathVariable Integer questionID) {   
+		serviceFacade.saveComment(comment);
+		return "redirect:/question/"+questionID ;	  
+	}
+    
    /* 
     @RequestMapping(value = "/question/{questionID}/close",  method = RequestMethod.POST)
     public String closeQuestion(Model model, @PathVariable Integer questionID,

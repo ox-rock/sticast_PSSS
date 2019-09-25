@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sticast.entity.Category;
+import com.sticast.entity.Comment;
 import com.sticast.entity.Forecast;
 import com.sticast.entity.Question;
+import com.sticast.repository.CategoryRepository;
 import com.sticast.repository.CommentRepository;
 import com.sticast.repository.QuestionRepository;
 import com.sticast.service.QuestionService;
@@ -18,6 +23,9 @@ public class QuestionServiceImpl implements QuestionService {
     
     @Autowired
 	CommentRepository commentRepository;
+    
+    @Autowired
+	CategoryRepository categoryRepository;
 
 	@Override
 	public ArrayList<Question> getAllQuestions(String category) {	
@@ -51,4 +59,16 @@ public class QuestionServiceImpl implements QuestionService {
 		questionRepository.save(oldQuestion);
 		
 	}
+	
+	@Override
+	public ArrayList<Category> getAllCategories(){		
+		return categoryRepository.findAll();	
+	}
+	
+	@Transactional
+	@Override
+	public void saveComment(Comment comment) {
+		commentRepository.save(comment);	
+	}
+
 }

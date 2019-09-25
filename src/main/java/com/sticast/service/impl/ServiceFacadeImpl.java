@@ -13,8 +13,6 @@ import com.sticast.entity.Forecast;
 import com.sticast.entity.Question;
 import com.sticast.exception.UsernameNotFoundException;
 import com.sticast.service.AccountService;
-import com.sticast.service.CategoryService;
-import com.sticast.service.CommentService;
 import com.sticast.service.ForecastService;
 import com.sticast.service.QuestionService;
 import com.sticast.service.ServiceFacade;
@@ -25,11 +23,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
 	@Autowired
     AccountService accountService;
 	@Autowired
-	CommentService commentService;
-	@Autowired
     QuestionService questionService;
-	@Autowired
-	CategoryService categoryService;
 	@Autowired
     ForecastService forecastService;
 	
@@ -51,12 +45,12 @@ public class ServiceFacadeImpl implements ServiceFacade {
 
 	@Override
 	public ArrayList<Category> getAllCategories() {
-		return categoryService.getAllCategories();
+		return questionService.getAllCategories();
 	}
 
 	@Override
 	public void saveComment(Comment comment) {
-		commentService.saveComment(comment);
+		questionService.saveComment(comment);
 	}
 
 	@Override
