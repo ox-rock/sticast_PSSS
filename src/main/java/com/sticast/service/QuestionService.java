@@ -15,4 +15,5 @@ public interface QuestionService {
 	public void updateShareValue(Forecast forecast);
 	public ArrayList<Category> getAllCategories();
 	public void saveComment(Comment comment);
+	public Double calculateShareValue(Question question);
 }

@@ -26,4 +26,6 @@ public interface ServiceFacade {
 	public Optional<Question> getQuestion(Integer questionID);
 	
 	public Double makeForecast(Forecast forecast);
+	
+	public Double calculateShareValue(Question question);
 }

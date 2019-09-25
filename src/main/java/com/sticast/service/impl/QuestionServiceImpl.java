@@ -70,5 +70,15 @@ public class QuestionServiceImpl implements QuestionService {
 	public void saveComment(Comment comment) {
 		commentRepository.save(comment);	
 	}
+	
+	@Override
+	public Double calculateShareValue(Question question) {
+		
+		//yesPrice = exp(yesQuantity/100) / (exp(yesQuantity/100) + exp(noQuantity/100))
+		Double yesPrice = (Math.exp(question.getYesShareQuantity()/100.0))/
+				(Math.exp(question.getYesShareQuantity()/100.0)+Math.exp(question.getNoShareQuantity()/100.0));
+		
+		return yesPrice;
+	}
 
 }

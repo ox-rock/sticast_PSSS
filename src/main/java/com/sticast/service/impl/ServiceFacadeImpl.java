@@ -85,4 +85,9 @@ public class ServiceFacadeImpl implements ServiceFacade {
 		SaveAccount(account);
 		return newBudget;
 	}
+
+	@Override
+	public Double calculateShareValue(Question question) {
+		return questionService.calculateShareValue(question);
+	}
 }
