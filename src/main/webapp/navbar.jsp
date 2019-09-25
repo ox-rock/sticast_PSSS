@@ -9,7 +9,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">               
-        <li id="questionsList" class="hide"><a href="${pageContext.request.contextPath}/questions/all">Questions</a></li>  
+        <li id="questionsList" class="hide"><a href="${pageContext.request.contextPath}/questions/all">Browse questions</a></li>  
       </ul>  
       <ul class="nav navbar-nav navbar-right">      
         <li id="nav_signin" class="hide"><a href="${pageContext.request.contextPath}/login" id="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

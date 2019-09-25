@@ -52,7 +52,7 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Login");
     }
     
-    @Test
+ /*   @Test
     public void TestLogin3() {
     	setScriptingEnabled(false);
     	beginAt("index.jsp");
@@ -65,7 +65,7 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Login");
     }
     
-    
+ */   
     @Test
     public void TestRegistration1() {
     	setScriptingEnabled(false);
@@ -156,8 +156,8 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Questions");
     	gotoPage("question/0");
     	assertTitleEquals("StiCast! - Test");
-    	setTextField("buyOrSell", "sell");
-    	setTextField("quantity", "10");
+    	setHiddenField("buyOrSell", "sell");
+    	setTextField("quantity", "-10");
     	submit();
     	assertTextInElement("ys", "0");
     	gotoPage("logout");
@@ -181,8 +181,8 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Questions");
     	gotoPage("question/0");
     	assertTitleEquals("StiCast! - Test");
-    	setTextField("buyOrSell", "buy");
-    	selectOptionByValue("selectYesNo",0,"no");
+    	setHiddenField("buyOrSell", "buy");
+    	selectOptionByValue("answer",0,"no");
     	setTextField("quantity", "10");
     	submit();
     	assertTextInElement("ns", "10");
@@ -207,9 +207,9 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Questions");
     	gotoPage("question/0");
     	assertTitleEquals("StiCast! - Test");
-       	setTextField("buyOrSell", "sell");
-    	selectOptionByValue("selectYesNo",0,"no");
-    	setTextField("quantity", "10");
+       	setHiddenField("buyOrSell", "sell");
+    	selectOptionByValue("answer",0,"no");
+    	setTextField("quantity", "-10");
     	submit();
     	assertTextInElement("ns", "0");
     	gotoPage("logout");
@@ -249,7 +249,7 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Questions");
     	gotoPage("question/0");
     	assertTitleEquals("StiCast! - Test");
-    	setTextField("addComment",randomComment);
+    	setTextField("text",randomComment);
     	submit();
     	assertTextPresent(randomComment);
     }

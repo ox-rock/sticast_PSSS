@@ -2,93 +2,93 @@ package com.sticast.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;	
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.sticast.model.Account;
+import com.sticast.entity.Account;
+import com.sticast.exception.UsernameNotFoundException;
+import com.sticast.service.ServiceFacade;
 
 @Controller
 public class AccountController {
 	
-	 /***************************
-	  * Login            		*
-	  ***************************/
+	@Autowired
+    ServiceFacade serviceFacade;
 	
-	  @RequestMapping(value = "/login", method = RequestMethod.GET)
-	  public String showLoginPage() {
+	/**************************
+	          Login            		
+	***************************/
+	
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String showLoginPage() {
 	       return "login";
-	  }
+	}
 	  
-	  @RequestMapping(value = "/login", method = RequestMethod.POST)
-	  public String doLogin(Model model, 
-	       @ModelAttribute("username") Account account, 
-	       HttpServletRequest request) {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String doLogin(Model model, 
+	     @ModelAttribute("username") Account account, 
+	     HttpServletRequest request) throws UsernameNotFoundException {
+	 
+	     Account theAccount = new Account();
+		 try {
+		     theAccount = serviceFacade.getAccountByUsername(account.getUsername());
+		 } 
+		 catch(UsernameNotFoundException e){
+	         System.out.println("[AccountController] ERROR: Wrong username!");			
+			 model.addAttribute("LoginResult", "wrongUsername");
+		     return "login";
+		 }
 		 
-		   String loginCheck = account.checkAccount();
-		  
-		   if(loginCheck.equals("wrongUsername")) {
-		        System.out.println("[AccountController] ERROR: Wrong username!");			
-			    model.addAttribute("LoginResult", "wrongUsername");
-		        return "login";
-		   } 
-	       else if(loginCheck.equals("wrongPassword")) {
-			    System.out.println("[AccountController] ERROR: Wrong password!");			
-			    model.addAttribute("LoginResult", "wrongPassword");
-		        return "login";
-		   } 
-		   else {			 
-			    System.out.println("[AccountController] OK: user '"+ account.getUsername() +"' successfully logged in!");	
-			    HttpSession session = request.getSession();
-			    session.setAttribute("username", account.getUsername());
-			    session.setAttribute("userBudget", account.getBudget());
-			    session.setAttribute("accountID", account.getId());
-			    session.setAttribute("isAdmin", account.getIsAdmin());  	    
-			    return "redirect:questions/all";
-	        }  	  
-	   }
+		 HttpSession session = request.getSession();
+		 session.setAttribute("username", theAccount.getUsername());
+		 session.setAttribute("userBudget",theAccount.getBudget());
+		 session.setAttribute("accountID", theAccount.getId());
+		 session.setAttribute("isAdmin", theAccount.getIsAdmin());  	       
+		   
+         return "redirect:questions/all";
+	}
 	  
-	  /*****************************
-   	   * Registration              *        																		     *
-	   *****************************/
-	  
-	  @RequestMapping(value = "/register", method = RequestMethod.GET)
-	  public String showRegistrationPage() {
-	       return "register";
-	  }
+	/*****************************
+   	 * Registration              *        																		     *
+	 *****************************/
+  
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String showRegistrationPage() {
+	     return "register";
+	}
 
 	  @RequestMapping(value = "/register", method = RequestMethod.POST)
-	  public String doRegistration(Model model, 
-	       @ModelAttribute("account") Account account, 
-	       HttpServletRequest request) {
-
-		   Account acc2 = new Account(account.getUsername(),account.getPassword(), account.getName(), account.getEmail());			
+	  public String doRegistration(Model model, @ModelAttribute("account") Account account, HttpServletRequest request) throws UsernameNotFoundException{
+		   try { 
+			   serviceFacade.SaveAccount(account);	
+ 	       } 
+		   catch(DataIntegrityViolationException ex) {
+			   System.out.println("[AccountController] ERROR: Username or Email already taken!");
+			   model.addAttribute("registrationCheck","error");
+			   return "register";
+ 	       }
 		 
-		   if (acc2.saveAccount() == 0) {
-			    System.out.println("[AccountController] ERROR: Username or Email already taken!");
-			    request.setAttribute("registrationCheck","error");
-			    return "register";
-	       }
-	       else {
-	    	    System.out.println("[AccountController] OK: Account successfully created!");
-	    	    acc2.checkAccount();
-	    	    HttpSession session = request.getSession();
-	            session.setAttribute("username", account.getUsername());
-	            session.setAttribute("accountID", acc2.getId());
-	            session.setAttribute("userBudget", 100.00);
-	            return "redirect:questions/all";
-	       } 	
-	  }
+	      System.out.println("[AccountController] OK: Account successfully created!");
+	      Account theAccount = serviceFacade.getAccountByUsername(account.getUsername());
+	            
+	      HttpSession session = request.getSession();
+	      session.setAttribute("username", account.getUsername());
+	      session.setAttribute("accountID", theAccount.getId());
+	      session.setAttribute("userBudget", 100.00);
+	      return "redirect:questions/all";
+	  }	
+	  
 	  
 	  /***************************
    	   * Logout                  *
 	   ***************************/
-	  
+	
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	  public String doLogout(HttpServletRequest request) {
 	       HttpSession session=request.getSession();
@@ -107,40 +107,30 @@ public class AccountController {
 	  *****************************/
 	  
 	  @RequestMapping(value = "/profile", method = RequestMethod.GET)
-	  public String showProfile(Model model, HttpServletRequest request) {	     
+	  public String showProfile(Model model, HttpServletRequest request, @ModelAttribute("account") Account account) {	     
 	       HttpSession session = request.getSession(false);
-		   Integer userID = (Integer)session.getAttribute("accountID");
-		   if(userID == null)
+		   Integer accountID = (Integer)session.getAttribute("accountID");
+		   if(accountID == null)
 		        return "login";
 			
-		   Account acc = new Account(null, userID);
-		   model.addAttribute("username", acc.getUsername());
-		   model.addAttribute("password", acc.getPassword());
-		   model.addAttribute("name", acc.getName());
-		   model.addAttribute("email", acc.getEmail());			
+		   account = serviceFacade.getAccountById(accountID);
+		   model.addAttribute("account", account);
+			
 		   return "profile";
 	  }
 	  
 	  @RequestMapping(value = "/profile", method = RequestMethod.POST)
-	  public void editProfile(Model model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		  
- 	       HttpSession session = request.getSession(false);
-		   Integer id = (Integer)session.getAttribute("accountID");
-		   String newUsername = request.getParameter("newUsername");
-		   String newPassword = request.getParameter("newPassword");
-		   String newName = request.getParameter("newName");
-		   String newEmail = request.getParameter("newEmail");
-		   String result;
-		   Account acc = new Account(newUsername, newPassword, newName, newEmail);
-		   PrintWriter out = response.getWriter();
-			
-		   if(acc.updateAccount(id) == 0) 
-		        result = "error";
-		   else {
-				result="ok";
-				session.setAttribute("username", newUsername);	
-		   }
-	       out.write(result);
+	  public String editProfile(Model model, HttpServletRequest request, @ModelAttribute("account") Account account) throws ServletException, IOException{
+ 	       HttpSession session = request.getSession(false);    
+ 	       try { 
+ 	    	  serviceFacade.SaveAccount(account);	
+ 	       } 
+ 	       catch(DataIntegrityViolationException ex) {
+ 	    	   model.addAttribute("editProfileCheck", "error");
+ 	    	   return "profile";
+ 	       }	  
+ 	       session.setAttribute("username", account.getUsername());	
+		   model.addAttribute("editProfileCheck", "success");
+		   return "profile";
 	  }
-	 
 }

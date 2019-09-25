@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script  src="js/index.js"></script>
+    
     <!------------ TOP NAVBAR ------------>
     <%@include file="navbar.jsp" %>
     <c:choose>
@@ -36,6 +37,7 @@
             <a href="${pageContext.request.contextPath}/forecasts" class="list-group-item list-group-item-action">Forecasts History</a>
           </div>
         </div>
+        
         <!------------ FOLLOWS TABLE ------------>
         <div class="col-md-9" style="padding-left: 10%;padding-right: 10%;">
           <table class="table-forecasts">
@@ -47,12 +49,13 @@
             <tbody class="table-hover">
               <c:forEach items="${followList}" var="data" varStatus="item">
                 <tr>
-                  <td class="text-justify"><a href="${pageContext.request.contextPath}/question/${data.question_id}">${data.question_text}</a></td>
+                  <td class="text-justify"><a href="${pageContext.request.contextPath}/question/${data.question.id}">${data.question.text}</a></td>
                 </tr>
               </c:forEach> 
             </tbody>
           </table>
         </div>
+        
       </div>
     </div>
     <%@ include file="footbar.jsp" %>

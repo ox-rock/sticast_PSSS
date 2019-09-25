@@ -36,7 +36,7 @@
         <select name ="category" id="selectCategory" style="height:27px; width: 150px">
           <option  value="all">All questions</option>
           <c:forEach items="${categoriesList}" var="data" varStatus="item"> 
-            <option  value="${data.category}">${data.category}</option>
+            <option  value="${data.name}">${data.name}</option>
           </c:forEach> 
         </select>
         <button class="button-choose"><span>Choose</span></button>
@@ -50,7 +50,6 @@
         <thead>
           <tr>
             <th class="text-left"><b>Questions</b></th>
-            <th class="text-center"><b>Forecasts count</b></th>
             <th class="text-center"><b>Expiration date</b></th>
             <th class="text-center"><b>Status</b></th>  
           </tr>
@@ -59,11 +58,10 @@
           <c:forEach items="${questionsList}" var="data" varStatus="item">
             <c:if test="${not item.first}">
             <tr>
-              <td class="text-justify"><a href="${pageContext.request.contextPath}/question/${data.id}" id="${data.id}">${data.question} </a></td>
-              <td class="text-center">${data.forecastCount}</td>
+              <td class="text-justify"><a href="${pageContext.request.contextPath}/question/${data.id}" id="${data.id}">${data.text} </a></td>
               <td class="text-center">${data.expirationDate}</td>
               <c:choose>
-                <c:when test="${data.isOpen == true}">
+                <c:when test="${data.isOpen == 1}">
                   <td class="text-center">Open</td>
                 </c:when>    
                 <c:otherwise>

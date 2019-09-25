@@ -27,12 +27,13 @@
     </c:choose>
   </head>
   <body>
-    <!-- LOGIN FORM -->
     <div class="user">
       <header class="user__header">
         <h1 class="user__title"><b>StiCast!</b></h1>
         <h1 class="user__title2">Login form</h1><br>
-      </header>     
+      </header> 
+      
+      <!------------------- LOGIN FORM --------------------->    
       <form:form class="form_login" action="${pageContext.request.contextPath}/login" method="post" modelAttribute="account">  
         <c:if test="${LoginResult == 'wrongPassword'}">
           <div class="form_error">Ops! Wrong password</div>
@@ -45,6 +46,7 @@
         <button class="btn" type="submit" name="op" value ="login">Log in</button>
       </form:form>
     </div>
+    
     <script src="/js/index.js"></script>
 	<%@ include file="footbar.jsp" %>
   </body>

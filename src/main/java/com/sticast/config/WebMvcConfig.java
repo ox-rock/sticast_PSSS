@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.sticast.controller")
+@ComponentScan("com.sticast")
 public class WebMvcConfig implements WebMvcConfigurer{
 
 	@Bean
@@ -31,4 +31,8 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
     }
+	
+	
+	
+	
 }

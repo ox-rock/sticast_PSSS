@@ -44,15 +44,17 @@
                 <th class="text-left">Question ID</th>
                 <th class="text-center">Answer</th>
            	    <th class="text-center">Quantity</th>
+           	    <th class="text-center">Payout</th>
             	<th class="text-center">Timestamp</th>  
         	  </tr>
             </thead>
             <tbody class="table-hover">
               <c:forEach items="${forecast}" var="data" varStatus="item">
                 <tr>
-                  <td class="text-justify"> <a href="${pageContext.request.contextPath}/question/${data.question_id}">${data.question_id}</a></td>
+                  <td class="text-justify"> <a href="${pageContext.request.contextPath}/question/${data.question.id}">${data.question.id}</a></td>
                   <td class="text-center">${data.answer}</td>
                   <td class="text-center">${data.quantity}</td>
+                  <td class="text-center">${data.payout} $</td>
                   <td class="text-center">${data.timestamp}</td>
                 </tr>
               </c:forEach> 
