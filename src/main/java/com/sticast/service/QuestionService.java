@@ -16,4 +16,5 @@ public interface QuestionService {
 	public ArrayList<Category> getAllCategories();
 	public void saveComment(Comment comment);
 	public Double calculateShareValue(Question question);
+	public void closeQuestion(Integer questionID);
 }

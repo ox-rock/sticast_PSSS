@@ -52,16 +52,9 @@
         <c:choose>
           <c:when test="${question.get().isOpen == 1}">
             <div class="form_buysell">
-              <c:choose>
-                <c:when test="${accountDetails.isFollowed == 0}">
-                  <a href="#" id="follow"><img id="followIcon" alt="follow" src="<c:url value="/img/unfollow.png" />" width="8%" style="margin-bottom: 8px;"></a><br>
-                </c:when>    
-                <c:otherwise>
-                  <a href="#" id="unfollow"><img id="followIcon" alt="unfollow" src="<c:url value="/img/follow.png" />" width="8%" style="margin-bottom: 8px;"></a><br>
-                </c:otherwise>
-              </c:choose>
-              <div style="display: inline-block; margin-right: 10%"><p style="margin-top: 0%; font-size: 20px; ">Yes</p><p style="margin-top:-15px; font-size: 30px;" id="ys"><b>${accountDetails.yesShareQuantity}</b></p></div>
-              <div style="display: inline-block; "><p style="margin-top: 0%; font-size: 20px;">No</p><p style="margin-top:-15px; font-size: 30px;" id="ns"><b>${accountDetails.noShareQuantity}</b></p></div>
+              
+              <div style="display: inline-block; margin-right: 10%"><p style="margin-top: 0%; font-size: 20px; ">Yes</p><p style="margin-top:-15px; font-size: 30px;" id="ys"><b>${yesQuantity}</b></p></div>
+              <div style="display: inline-block; "><p style="margin-top: 0%; font-size: 20px;">No</p><p style="margin-top:-15px; font-size: 30px;" id="ns"><b>${noQuantity}</b></p></div>
               <ul class="tab-group">
                 <li class="tab active"><a href="#buy">Buy</a></li>
                 <li class="tab"><a href="#sell">Sell</a></li>
@@ -103,8 +96,8 @@
                     <table>
                       <tr>
                         <th>Type</th>
-                        <th class="2th2" >Quantity (max ${accountDetails.yesShareQuantity})</th>
-                        <th class="2th3" style="display:none">Quantity (max ${accountDetails.noShareQuantity})</th>
+                        <th class="2th2" >Quantity (max ${yesQuantity})</th>
+                        <th class="2th3" style="display:none">Quantity (max ${noQuantity})</th>
                         <th id="total_sell" style=" width: 120px">Total: 0$</th>
                       </tr>
                       <tr>
@@ -114,8 +107,8 @@
                             <form:option value="no">No</form:option>
                           </form:select>
                         </td>
-                        <td class="2td2" width="50%"><input id="in_qnt3" type="number" name ="qnt1" min="1" max="${accountDetails.yesShareQuantity}" value="#" required /></td>
-                        <td class="2td3" style="display:none" width="50%"><input id="in_qnt4" type="number" name ="qnt2" min="1" max="${accountDetails.noShareQuantity}" value="#" disabled /></td>
+                        <td class="2td2" width="50%"><input id="in_qnt3" type="number" name ="qnt1" min="1" max="${yesQuantity}" value="#" required /></td>
+                        <td class="2td3" style="display:none" width="50%"><input id="in_qnt4" type="number" name ="qnt2" min="1" max="${noQuantity}" value="#" disabled /></td>
    		                <td width="25%"><button class="button" style="vertical-align:middle"><span>Sell</span></button></td>
    			            <td>
 				          <input type ="hidden" name="buyOrSell" value="sell"/>
@@ -183,8 +176,8 @@
 		  legendText: "{label}",
 		  indexLabel: "{label}: #percent%",
 		  dataPoints: [
-			{ label: "Yes", y: ${question.get().yesValue}},
-			{ label: "No", y: ${question.get().noValue}}
+			{ label: "Yes", y: ${yesValue}},
+			{ label: "No", y: ${noValue}}
 		  ]
 		}]};    
 	  $("#chartContainer").CanvasJSChart(options);
@@ -261,44 +254,6 @@
       $("#th2").text("Quantity (max "+ maxYes +")");
       $("#th3").text("Quantity (max "+ maxNo +")");
       $("#in_qnt2").attr('max',maxNo);	
-    });
-    
-    $(document).ready(function(){
-    	$("#followIcon").click(function(e){
-    	    e.preventDefault();
-    	    var type = $("#followIcon").attr("alt");
-    	    var questionID = '${question.get().id}';
-    	
-    	    $.ajax({
-    	        url: "/sticast/following",
-    	        type: 'POST',
-    	        cache: false,
-    	        data: {
-    	            type: type,
-    	            questionID: questionID,
-    	        },
-
-    	        success: function () {
-    	            console.log("It works!");
-    	            if(type == 'follow') {
-    	                $("#followIcon").attr({
-    	        	        src: "/sticast/img/follow.png",
-    	        	        alt: "unfollow"
-    	                });
-    	            }
-    	            else {
-    	    	        $("#followIcon").attr({
-    	        	        src: "/sticast/img/unfollow.png",
-    	        	        alt: "follow"
-    	                });  
-    	            }
-    	        },
-    	  
-    	        error: function() {
-    	            console.log("It doesn't works!");
-    	        }
-    	    });
-        });
     });
     
   </script>

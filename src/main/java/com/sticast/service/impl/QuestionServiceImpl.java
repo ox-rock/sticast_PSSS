@@ -81,4 +81,10 @@ public class QuestionServiceImpl implements QuestionService {
 		return yesPrice;
 	}
 
+	@Override
+	public void closeQuestion(Integer questionID) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

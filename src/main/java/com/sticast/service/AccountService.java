@@ -8,4 +8,6 @@ public interface AccountService {
 	public Account getAccountByUsername(String username) throws UsernameNotFoundException;
 	public Account getAccountById(Integer accountID);
 	public void SaveAccount(Account account);
+	public void payWinner(Integer accountID, Integer quantity);
+	public Integer getShareQuantity(Integer accountID, Integer questionID, String answer);
 }

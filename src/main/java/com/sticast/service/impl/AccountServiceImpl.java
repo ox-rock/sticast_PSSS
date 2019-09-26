@@ -28,5 +28,16 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account getAccountById(Integer accountID) {
 		return accountRepository.findOneById(accountID);
+	}
+
+	@Override
+	public void payWinner(Integer accountID, Integer quantity) {
+		accountRepository.payWinner(accountID, quantity);	
+	}
+
+	@Override
+	public Integer getShareQuantity(Integer accountID, Integer questionID, String answer) {
+		return accountRepository.getShareQuantity(accountID, questionID, answer);
 	}	
+	
 }

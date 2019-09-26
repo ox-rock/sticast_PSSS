@@ -54,11 +54,17 @@ public class QuestionController {
 		Optional<Question> question = serviceFacade.getQuestion(questionID);
 		if (question.isEmpty()) 
 			return "redirect:/questions/all";
-		model.addAttribute("question",question);
 		
-//		AccountDetails accountDetails = serviceFacade.getAccountDetails(accountID, questionID);
-//		model.addAttribute("accountDetails", accountDetails);
-//	    model.addAttribute("commentsList", question.get().getCommenstList());	
+		Integer yesQuantity = serviceFacade.getShareQuantity(accountID, questionID, "yes");
+		Integer noQuantity = serviceFacade.getShareQuantity(accountID, questionID, "no");
+		Double yesShareValue = serviceFacade.calculateShareValue(question.get());
+		
+		model.addAttribute("question",question);
+		model.addAttribute("yesQuantity", yesQuantity);	
+		model.addAttribute("noQuantity", noQuantity);	
+		model.addAttribute("yesValue", yesShareValue);
+		model.addAttribute("noValue", 1 - yesShareValue);
+	    model.addAttribute("commentsList", question.get().getCommenstList());	
 
 	    return "question";	  
     }
@@ -69,42 +75,11 @@ public class QuestionController {
 		return "redirect:/question/"+questionID ;	  
 	}
     
-   /* 
-    @RequestMapping(value = "/question/{questionID}/close",  method = RequestMethod.POST)
+    @RequestMapping(value = "/question/{questionID}/close",  method = RequestMethod.GET)
     public String closeQuestion(Model model, @PathVariable Integer questionID,
-	    HttpServletRequest request) {
-	
-    	String winnerType = request.getParameter("winnerType");
-		
-		//ArrayList<Share> playersList = new ArrayList<Share>();
-		QuestionServiceImpl question = new QuestionServiceImpl();
-		question.getAllPlayers(questionID);
-		playersList = question.getAllPlayers();
-		
-		for(int i=0; i < playersList.size(); i++){
-			Integer accountID = playersList.get(i).getAccount_id();
-			Integer yesShareQuantity = playersList.get(i).getYesShareQuantity();
-			Integer noShareQuantity = playersList.get(i).getNoShareQuantity();
-			payWinners(accountID, yesShareQuantity, noShareQuantity, winnerType);
-		}
-		
-		question.closeQuestion(questionID);
-	
-		return "redirect:questions/all";
-    	
+	    HttpServletRequest request) {	
+    	serviceFacade.closeQuestion(questionID, "yes");	
+		return "redirect:/questions/all";	
     }
     
-    private void payWinners(Integer accountID, Integer yesShareQuantity, Integer noShareQuantity, String winnerType) {
-		AccountServiceImpl account = new AccountServiceImpl(null, accountID);
-		Double newBudget;
-		
-		if(winnerType.equals("yes")) 
-		    newBudget = account.getBudget() + yesShareQuantity;    		
-		else newBudget = account.getBudget() + noShareQuantity;    
-		
-		AccountServiceImpl acc = new AccountServiceImpl();
-		acc.updateBudget(accountID,newBudget);
-	}
-    
-    */
 }
