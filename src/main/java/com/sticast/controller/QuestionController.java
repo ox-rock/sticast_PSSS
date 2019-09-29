@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.sticast.entity.Category;
 import com.sticast.entity.Comment;
 import com.sticast.entity.Forecast;
@@ -75,10 +77,10 @@ public class QuestionController {
 		return "redirect:/question/"+questionID ;	  
 	}
     
-    @RequestMapping(value = "/question/{questionID}/close",  method = RequestMethod.GET)
-    public String closeQuestion(Model model, @PathVariable Integer questionID,
+    @RequestMapping(value = "/question/{questionID}/close",  method = RequestMethod.POST)
+    public String closeQuestion(Model model, @PathVariable Integer questionID, @RequestParam("winnerType") String winnerType,
 	    HttpServletRequest request) {	
-    	serviceFacade.closeQuestion(questionID, "yes");	
+    	serviceFacade.closeQuestion(questionID, winnerType);	
 		return "redirect:/questions/all";	
     }
     
