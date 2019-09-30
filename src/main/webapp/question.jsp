@@ -196,6 +196,7 @@
       });
     });
 
+    
     <!-------------- Calculate No share payout (Buy) ---------------->
     $(document).ready(function(){
       $("#in_qnt2").on('change keyup', function() {
