@@ -93,5 +93,4 @@ public class ServiceFacade {
 	public Integer getShareQuantity(Integer accountID, Integer questionID, String answer) {
 		return accountService.getShareQuantity(accountID, questionID, answer);
 	}
-	
 }
