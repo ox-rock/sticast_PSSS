@@ -52,7 +52,7 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Login");
     }
     
- /*   @Test
+    @Test
     public void TestLogin3() {
     	setScriptingEnabled(false);
     	beginAt("index.jsp");
@@ -65,7 +65,7 @@ public class JWebUnitTest {
     	assertTitleEquals("StiCast! - Login");
     }
     
- */   
+   
     @Test
     public void TestRegistration1() {
     	setScriptingEnabled(false);

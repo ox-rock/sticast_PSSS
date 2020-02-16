@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.sticast.entity.Account;
-import com.sticast.exception.UsernameNotFoundException;
 import com.sticast.service.ServiceFacade;
 
 @Controller
@@ -32,30 +32,33 @@ public class AccountController {
 	  
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String doLogin(Model model, 
-	     @ModelAttribute("username") Account account, 
-	     HttpServletRequest request) throws UsernameNotFoundException {
+	     @ModelAttribute("username") Account account, HttpServletRequest request) {
 	 
-	     Account theAccount = new Account();
-		 try {
-		     theAccount = serviceFacade.getAccountByUsername(account.getUsername());
-		 } 
-		 catch(UsernameNotFoundException e){
-	         System.out.println("[AccountController] ERROR: Wrong username!");			
+		 Optional<Account> theAccount = serviceFacade.getAccountByUsername(account.getUsername());
+		 // theAccount = serviceFacade.getAccountByUsername(account.getUsername());
+
+		 if(theAccount.isEmpty()) {
+			 System.out.println("[AccountController] ERROR: Wrong username!");			
 			 model.addAttribute("LoginResult", "wrongUsername");
-		     return "login";
+	    	 return "login";
+		 } 
+		 else if(!theAccount.get().getPassword().equals(account.getPassword())) {
+			 System.out.println("[AccountController] ERROR: Wrong password!");			
+		     model.addAttribute("LoginResult", "wrongPassword");
+		     return "login";	 
 		 }
-		 
-		 HttpSession session = request.getSession();
-		 session.setAttribute("username", theAccount.getUsername());
-		 session.setAttribute("userBudget",theAccount.getBudget());
-		 session.setAttribute("accountID", theAccount.getId());
-		 session.setAttribute("isAdmin", theAccount.getIsAdmin());  	       
-		   
-         return "redirect:questions/all";
+		 else {
+			 HttpSession session = request.getSession();
+			 session.setAttribute("username", theAccount.get().getUsername());
+			 session.setAttribute("userBudget",theAccount.get().getBudget());
+			 session.setAttribute("accountID", theAccount.get().getId());
+			 session.setAttribute("isAdmin", theAccount.get().getIsAdmin());  	       
+			 return "redirect:questions/all";
+		 }
 	}
 	  
 	/*****************************
-   	 * Registration              *        																		     *
+   	 * Registration              *        																		     
 	 *****************************/
   
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -64,7 +67,7 @@ public class AccountController {
 	}
 
 	  @RequestMapping(value = "/register", method = RequestMethod.POST)
-	  public String doRegistration(Model model, @ModelAttribute("account") Account account, HttpServletRequest request) throws UsernameNotFoundException{
+	  public String doRegistration(Model model, @ModelAttribute("account") Account account, HttpServletRequest request){
 		   try { 
 			   serviceFacade.SaveAccount(account);	
  	       } 
@@ -75,11 +78,11 @@ public class AccountController {
  	       }
 		 
 	      System.out.println("[AccountController] OK: Account successfully created!");
-	      Account theAccount = serviceFacade.getAccountByUsername(account.getUsername());
+	      Optional<Account> theAccount = serviceFacade.getAccountByUsername(account.getUsername());
 	            
 	      HttpSession session = request.getSession();
 	      session.setAttribute("username", account.getUsername());
-	      session.setAttribute("accountID", theAccount.getId());
+	      session.setAttribute("accountID", theAccount.get().getId());
 	      session.setAttribute("userBudget", 100.00);
 	      return "redirect:questions/all";
 	  }	

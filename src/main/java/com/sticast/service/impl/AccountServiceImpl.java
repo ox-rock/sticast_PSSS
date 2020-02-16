@@ -1,10 +1,11 @@
 package com.sticast.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.sticast.entity.Account;
-import com.sticast.exception.UsernameNotFoundException;
 import com.sticast.repository.AccountRepository;
 import com.sticast.service.AccountService;
 
@@ -16,8 +17,8 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	@Transactional
-	public Account getAccountByUsername(String username) throws UsernameNotFoundException {	
-		return accountRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));		
+	public Optional<Account> getAccountByUsername(String username) {	
+		return accountRepository.findByUsername(username);		
 	}
 	
 	@Override

@@ -1,11 +1,11 @@
 package com.sticast.service;
 
+import java.util.Optional;
 import com.sticast.entity.Account;
-import com.sticast.exception.UsernameNotFoundException;
 
 public interface AccountService {
 	
-	public Account getAccountByUsername(String username) throws UsernameNotFoundException;
+	public Optional<Account> getAccountByUsername(String username);
 	public Account getAccountById(Integer accountID);
 	public void SaveAccount(Account account);
 	public void payWinner(Integer accountID, Integer quantity);

@@ -11,7 +11,6 @@ import com.sticast.entity.Comment;
 import com.sticast.entity.Forecast;
 import com.sticast.entity.Question;
 import com.sticast.entity.Winner;
-import com.sticast.exception.UsernameNotFoundException;
 import com.sticast.service.AccountService;
 import com.sticast.service.AdministratorService;
 import com.sticast.service.ForecastService;
@@ -30,7 +29,7 @@ public class ServiceFacade {
 	@Autowired
     AdministratorService administratorService;
 	
-	public Account getAccountByUsername(String username) throws UsernameNotFoundException {
+	public Optional<Account> getAccountByUsername(String username) {
 		return accountService.getAccountByUsername(username);
 	}
 
